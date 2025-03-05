@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_midi_command/flutter_midi_command.dart';
 import 'package:hauptwerk_hub/components/midi_devices.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  MidiCommand()
+    ..addVirtualDevice(name: 'Mixtuur')
+    ..addVirtualDevice(name: 'Mixtuur 2')
+    ..addVirtualDevice(name: 'Mixtuur 3');
+
   runApp(const HauptwerkHubApp());
 }
 
@@ -38,7 +46,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Hauptwerk Hub'),
       ),
-      body: const MidiDevices(),
+      body: const Center(child: MidiDevices()),
     );
   }
 }
