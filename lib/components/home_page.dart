@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hauptwerk_hub/components/midi_devices.dart';
+import 'package:hauptwerk_hub/components/organ_picker.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,7 +14,13 @@ class HomePage extends StatelessWidget {
       ),
       body: const Padding(
         padding: EdgeInsets.only(top: 16),
-        child: Center(child: MidiDevices()),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 16,
+            children: [MidiDevices(), Flexible(child: OrganPicker())],
+          ),
+        ),
       ),
     );
   }

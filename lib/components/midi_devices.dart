@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_midi_command/flutter_midi_command.dart';
 import 'package:hauptwerk_hub/components/midi_device_list.dart';
-import 'package:hauptwerk_hub/components/organ_picker.dart';
 
 class MidiDevices extends StatelessWidget {
   const MidiDevices({super.key});
@@ -62,18 +61,10 @@ class MidiDevices extends StatelessWidget {
               final devices =
                   snapshot.data!..sort((a, b) => a.name.compareTo(b.name));
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                spacing: 16,
-                children: [
-                  MidiDeviceList(
-                    devices: devices,
-                    onConnect: _connectToDevice,
-                    onDisconnect: _disconnectDevice,
-                  ),
-                  if (devices.isNotEmpty) const Flexible(child: OrganPicker()),
-                ],
+              return MidiDeviceList(
+                devices: devices,
+                onConnect: _connectToDevice,
+                onDisconnect: _disconnectDevice,
               );
             },
           ),
