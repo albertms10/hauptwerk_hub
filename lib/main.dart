@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_midi_command/flutter_midi_command.dart';
-import 'package:hauptwerk_hub/components/midi_devices.dart';
+import 'package:hauptwerk_hub/components/home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  MidiCommand()
-    ..addVirtualDevice(name: 'Mixtuur')
-    ..addVirtualDevice(name: 'Mixtuur 2')
-    ..addVirtualDevice(name: 'Mixtuur 3');
 
   runApp(const HauptwerkHubApp());
 }
@@ -32,21 +26,6 @@ class HauptwerkHubApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Hauptwerk Hub'),
-      ),
-      body: const Center(child: MidiDevices()),
     );
   }
 }

@@ -1,9 +1,8 @@
-import 'dart:typed_data' show Uint8List;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_midi_command/flutter_midi_command.dart';
 import 'package:hauptwerk_hub/components/midi_device_list.dart';
+import 'package:hauptwerk_hub/components/organ_picker.dart';
 
 class MidiDevices extends StatelessWidget {
   const MidiDevices({super.key});
@@ -18,10 +17,6 @@ class MidiDevices extends StatelessWidget {
     } on PlatformException catch (e) {
       if (e.message != 'Device already connected') rethrow;
     }
-  }
-
-  void _sendMidiCommand() {
-    MidiCommand().sendData(Uint8List.fromList(const [0xB0, 64, 127]));
   }
 
   @override
@@ -43,6 +38,10 @@ class MidiDevices extends StatelessWidget {
           ConnectionState.waiting || ConnectionState.active => FutureBuilder(
             future: MidiCommand().devices,
             builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return const Text('No MIDI devices found.');
+              }
+
               if (snapshot.data == null) {
                 return Row(
                   spacing: 24,
@@ -73,10 +72,7 @@ class MidiDevices extends StatelessWidget {
                     onConnect: _connectToDevice,
                     onDisconnect: _disconnectDevice,
                   ),
-                  TextButton(
-                    onPressed: _sendMidiCommand,
-                    child: const Text('Send MIDI command'),
-                  ),
+                  if (devices.isNotEmpty) const Flexible(child: OrganPicker()),
                 ],
               );
             },

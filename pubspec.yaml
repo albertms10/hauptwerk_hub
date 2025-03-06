@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_midi_command: ^0.5.3
+  path: ^1.9.1
+  path_provider: ^2.1.5
+  xml: ^6.5.0
 
 dev_dependencies:
   flutter_test:
